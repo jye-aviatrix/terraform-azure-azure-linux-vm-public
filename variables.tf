@@ -16,7 +16,7 @@ variable "resource_group_name" {
 
 variable "subnet_id" {
   type = string
-  description = "Provide public subnet id"
+  description = "Provide public subnet id, format: /subscriptions/<subscription_guid>/resourceGroups/<resource_group>/providers/Microsoft.Network/virtualNetworks/<vNet_name>/subnets/<subnet_name>"
 }
 
 variable "public_key_file" {
@@ -27,17 +27,8 @@ variable "public_key_file" {
 variable "admin_username" {
   type = string
   default = "ubuntu"
+  description = "Provide local user of the VM"
 }
-
-# variable "custom_data" {
-#   type = string
-#   default =<<EOF
-# #!/bin/bash
-# sudo apt update -y
-# sudo apt install apache2 -y
-# echo "<h1>${var.vm_name}</h1>" | sudo tee /var/www/html/index.html
-# EOF
-# }
 
 variable "tags" {
   description = "Provide additional tags"
@@ -53,10 +44,8 @@ locals {
     },
     var.tags
   )
-}
 
-locals {
-  custom_data = <<EOF
+    custom_data = <<EOF
 #!/bin/bash
 sudo apt update -y
 sudo apt install apache2 -y
