@@ -39,7 +39,7 @@ resource "azurerm_network_security_group" "this" {
     protocol                   = "Tcp"
     source_port_range          = "*"
     destination_port_range     = "22"
-    source_address_prefix      = "${data.http.ip.body}/32"
+    source_address_prefix      = "${data.http.ip.response_body}/32"
     destination_address_prefix = "*"
   }
   security_rule {
