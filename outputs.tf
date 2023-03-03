@@ -1,3 +1,7 @@
+output "vm_name" {
+  description = "VM Name"
+  value = azurerm_linux_virtual_machine.this.name
+}
 output "public_ip" {
   description = "Public IP"
   value = azurerm_public_ip.this.ip_address
