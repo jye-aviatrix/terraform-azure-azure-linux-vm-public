@@ -9,24 +9,24 @@ variable "vm_name" {
 }
 
 variable "resource_group_name" {
-  type = string
+  type        = string
   description = "Provide the Resource Group name"
 }
 
 
 variable "subnet_id" {
-  type = string
+  type        = string
   description = "Provide public subnet id, format: /subscriptions/<subscription_guid>/resourceGroups/<resource_group>/providers/Microsoft.Network/virtualNetworks/<vNet_name>/subnets/<subnet_name>"
 }
 
 variable "public_key_file" {
-  type = string
+  type        = string
   description = "Provide path to SSH public key for the VM"
 }
 
 variable "admin_username" {
-  type = string
-  default = "ubuntu"
+  type        = string
+  default     = "ubuntu"
   description = "Provide local user of the VM"
 }
 
@@ -45,10 +45,17 @@ locals {
     var.tags
   )
 
-    custom_data = <<EOF
+  custom_data = <<EOF
 #!/bin/bash
 sudo apt update -y
 sudo apt install apache2 -y
 echo "<h1>${var.vm_name}</h1>" | sudo tee /var/www/html/index.html
+sudo apt install iperf3 -y
 EOF
+}
+
+variable "size" {
+  type        = string
+  default     = "Standard_B1s"
+  description = "Provide VM Size"
 }
