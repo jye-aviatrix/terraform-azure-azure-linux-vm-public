@@ -1,5 +1,5 @@
 data "http" "ip" {
-  url = "https://ifconfig.me"
+  url = "https://ifconfig.me/ip"
 }
 
 
